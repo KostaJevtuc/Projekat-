@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-recnik=['razloziti','prekravica','kravica','loziti','usluziti','sluziti','prepisati','preziveti','ziveti','pisati']
+recnik=['razloziti','loziti','usluziti','sluziti','prepisati','preziveti','ziveti','pisati']
 lista_prefiksa=[]
 for i in recnik: #prolazi kroz reci u recniku
     prefiks=i[0] #prvo slovo reci
