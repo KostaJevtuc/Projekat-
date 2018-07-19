@@ -1,0 +1,38 @@
+sta program radi i zasto je svaka linija tu gde jeste:
+
+-uz pomoc list comprehentiona smo text pretvorili u listu reci (naziv varijable je recnik) a posto je svaka rec u dokumentu odvojena novim redom, 
+skiinuli smo ga
+
+-za pravljenje liste prefiksa smo koristili koristili 'Kompoziciju i prefiksaciju' od Ivana Klajna. U poglavlju nazvanom 'imenice sa prefiksima'
+popisuje prefikse domaceg i stranog porekla koji mogu da stoje uz imenice. Ispisali smo sve prefikse domaceg porekla, kao i njihove, alomorfe,
+bilo oni obezvuceni, ozvuceni, prosireni ili izmenjeni (Klajn je napravio ovu podelu alomorfa u ranijim poglavljima). 
+Stavili smo ih u listu pod nazivom 'listaprefiksa'. Zbog dosta gresaka koje je stvarao tokom rada koda i male frekventnosti, izuzeli smo prefiks 'pa'
+
+-glavni deo naseg koda je funkcija 'prefiksator' koja za svoj argument uzima string  (primer:pretcas)
+
+-program prvo prolazi kroz 'for' petlju i proverava da li string pocinje jednim od prefiksa (prefiks pret in pretcas)
+
+-u slucaju da pocinje, prvi korak je da proveri da li je ostatak reci u listi napravljenoj na samom pocetku (cas). Ako se ovaj uslov ispuni,
+moze se reci da rec zaista ima prefiks i potom se rec i prefiks mogu izbaciti na konzolu. 
+
+-medjutim, vec smo na pocetku uvideli da taj uslov nije dovoljan, jer postoje reci koje imaju neleksikalizovanu osnovu, ali svejedno imaju
+prefiks (natpis). Za resavanje ovog problema, uvela se nova for petlja koja prolazi kroz listu prefiksa. Kroz novu petlju se prolazi samo
+ako ostatak reci program ne pronadje u listi. Kod dalje pokusava da ukombinuje prefikse iz liste sa ostatkom reci i proverava da li se bilo
+koja kombinacija nalazi u recniku napravljenom na pocetku. Kada se ovaj uslov ispuni, takodje se rec i njen prefiks ispisuju na konzolu.
+
+-dalje smo zeleli da se pozabavimo imenicama koje imaju vise prefiksa (samopozrtvovanje). Kod do sada bi svakako prepoznao prefiks 'samo', ali bi tu i stao.
+Odlucili smo da taj problem resimo rekurzijom funkcije 'prefiksator'. Pre rekurzije, program redefinise originalnu rec tako da je ona bez prefiksa 
+(samopozrtvovanje -> pozrtvovanje), i tek takva rec prolazi jos jednom kroz prefiksator. Ulazom u prvu for petlju se prepoznaje prefiks 'po', 
+posle cega program pokusava da ispuni jedan od dva pocetna kriterijuma. Ako uspe, na konzolu se izbaciuju svi do sada pronadjeni prefiksi i rec 
+(radi lakseg rada posle svakog ekstrahovanja prefiksa, smo ga dodali na listu 'prefiksi', ciji se sadrzaj na kraju printuje u konzolu i koji se 
+brise kada prva for petlja (4. bulletpoint) prelazi na novu rec, da ne bi program ispisivao prefikse koji su pronadjeni u ranijim recima).
+
+-dalji problemi su se javljali kada su dosle na red imenice napravljene kombinovanom tvorbom, kod koji hbi prefiks svakako trebalo izdvojiti, ali koje ne mogu
+da ispune ni jedan od dva glavna uslova (primorje). Jedan od nacina da resimo ovaj problem je da proverimo da li se rec kod koje je pronadjen prefiks i koja
+ne ispunjava ni jedan od uslova zavrsava sufiksom. Za pravljenje liste sufiksa smo koristili Klajnovo poglavlje o prefiksalno-sufiksalnoj tvorbi(2,4). 
+Kada se prepozna sufiks, zajedno sa svim do tada pronadjenim prefiksima za tu rec se izbacuje u zasban fajl (reci_sa_sufiksima.txt).
+
+-kasnije su dodata dva uslova za nastavak iteracije (4. bulletpoint), a to je da ostatak reci ne sme da bude prazna niska (u reci suza su i 'su' i 'za' pronadjeni kao prefiksi,
+tako da je ostatak reci bio prazna niska, sto lako zadovoljava drugi uslov). Drugi dodati uslov je da ostatak reci ne sme da bude u listi sufiksa (proba), jer 
+se tad takodje lako moze ispuniti drugi kriterijum provere reci. Ako je bilo koji od ova dva slucaja ispunjen, iteracija se prekida i svi dosadasnji dodati 
+prefiksi i sufiksi se brisu iz listi. Iz istih razloga je posle dodat i treci uslov, a to je da ostatak reci ne sme da bude sastojan iz jednog slova (sat).
