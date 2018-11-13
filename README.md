@@ -1,2 +1,3 @@
 # Projekat-
-ISP Petnica. Projekat. Kosta i Milana
+ISP Petnica. Projekat. Kosta i Stefan
+
