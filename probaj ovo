@@ -27,16 +27,17 @@ def alomorf(prefiks, rec):
     else:
         return False
 
-def provera_glagola(osnova_gpt, listainfinitiva, uslov, listaglagola, listaprefiksa):
+def provera_glagola(rec,osnova_gpt, listainfinitiva, uslov, listaglagola, listaprefiksa):
     for nastavak_za_infinitiv in listainfinitiva:
         potencijalni_glagol = osnova_gpt + nastavak_za_infinitiv
         if potencijalni_glagol in listaglagola:
             prvi = prvi_uslov(potencijalni_glagol, prefiks, listaglagola)
             drugi = drugi_uslov(prefiks, potencijalni_glagol, listaprefiksa, listaglagola)
             if prvi == 1 or drugi == 2:
-                uslov = 33
-                return uslov
-                break
+                print('nasao 33')
+                with open('uslov33.txt', 'a+', encoding = 'utf-8') as izlaz_33:
+                    izlaz_33.write(rec + ' : ' + prefiks + ' : ' + sufiks + ' (' + potencijalni_glagol + ')\n')
+                    break
 
 def prvi_uslov(rec, prefiks, recnik):
     """
@@ -126,7 +127,8 @@ def prefiksator(rec, listaprefiksa, recnik, listasufiksa, listainfinitiva, lista
                                                         break       
                         
                         if uslov == 0:
-                        
+                            if sufiks.startswith("n"):
+                                osnova_bez_sufiksa=osnova_bez_sufiksa + "n"
                             if osnova_bez_sufiksa.endswith('nut'):
                                 potencijalni_glagol = osnova_bez_sufiksa + 'i'
                                 if potencijalni_glagol in listaglagola:
@@ -146,47 +148,44 @@ def prefiksator(rec, listaprefiksa, recnik, listasufiksa, listainfinitiva, lista
                                             break
                             elif osnova_bez_sufiksa.endswith('en'):
                                 osnova_gpt = osnova_bez_sufiksa[:-2]
-                                uslov = provera_glagola(osnova_gpt, listainfinitiva, uslov, listaglagola, listaprefiksa)
+                                uslov = provera_glagola(rec,osnova_gpt, listainfinitiva, uslov, listaglagola, listaprefiksa)
                                 if uslov == 0:
                                     lj_lista = ['blj', 'vlj', 'plj', 'mlj']
                                     for jotovano in lj_lista:
                                         if osnova_gpt.endswith(jotovano):
                                             osnova_gpt = osnova_gpt[:-2]
-                                            uslov = provera_glagola(osnova_gpt, listainfinitiva, uslov, listaglagola, listaprefiksa)
+                                            uslov = provera_glagola(rec,osnova_gpt, listainfinitiva, uslov, listaglagola, listaprefiksa)
                                 if uslov == 0:
                                     if osnova_gpt.endswith('đ'):
                                         osnova_gpt = osnova_gpt[:-1] + 'd'
-                                        uslov = provera_glagola(osnova_gpt, listainfinitiva, uslov, listaglagola, listaprefiksa)
+                                        uslov = provera_glagola(rec,osnova_gpt, listainfinitiva, uslov, listaglagola, listaprefiksa)
+
                                 if uslov == 0:
                                     if osnova_gpt.endswith('ć'):
                                         osnova_gpt = osnova_gpt[:-1] + 't'
-                                        uslov = provera_glagola(osnova_gpt, listainfinitiva, uslov, listaglagola, listaprefiksa)
+                                        uslov = provera_glagola(rec,osnova_gpt, listainfinitiva, uslov, listaglagola, listaprefiksa)
                                 if uslov == 0:
                                     if osnova_gpt.endswith('šlj'):
                                         osnova_gpt = osnova_gpt[:-3] + 'sl'
-                                        uslov = provera_glagola(osnova_gpt, listainfinitiva, uslov, listaglagola, listaprefiksa)
+                                        uslov = provera_glagola(rec,osnova_gpt, listainfinitiva, uslov, listaglagola, listaprefiksa)
                                 if uslov == 0:
                                     if osnova_gpt.endswith('j'):
                                         osnova_gpt = osnova_gpt[:-1]
-                                        uslov = provera_glagola(osnova_gpt, listainfinitiva, uslov, listaglagola, listaprefiksa)
+                                        uslov = provera_glagola(rec,osnova_gpt, listainfinitiva, uslov, listaglagola, listaprefiksa)
                                 if uslov == 0:
                                     if osnova_gpt.endswith('š'):
                                         osnova_gpt = osnova_gpt[:-1] + 's'
-                                        uslov = provera_glagola(osnova_gpt, listainfinitiva, uslov, listaglagola, listaprefiksa)
+                                        uslov = provera_glagola(rec,osnova_gpt, listainfinitiva, uslov, listaglagola, listaprefiksa)
                                 if uslov == 0:
                                     if osnova_gpt.endswith('č'):
                                         osnova_gpt = osnova_gpt[:-1] + 'c'
-                                        uslov = provera_glagola(osnova_gpt, listainfinitiva, uslov, listaglagola, listaprefiksa)
+                                        uslov = provera_glagola(rec,osnova_gpt, listainfinitiva, uslov, listaglagola, listaprefiksa)
                                 if uslov == 0:
                                     if osnova_gpt.endswith('č'):
                                         potencijalni_glagol = osnova_gpt[:-1] + 'ći'
                                         if potencijalni_glagol in listaglagola:
-                                            uslov = 33
-                                            break
-                                                        
-                    if uslov == 0:
-                        uslov = 3
-                        print('nasao 3')
-                        with open('uslov3.txt', 'a+', encoding = 'utf-8') as izlaz_3:
-                            izlaz_3.write(rec + ' : ' + prefiks + ' : ' + sufiks + '\n')
-                            break
+                                           print('nasao 33')
+                                           with open('uslov33.txt', 'a+', encoding = 'utf-8') as izlaz_33:
+                                               izlaz_33.write(rec + ' : ' + prefiks + ' : ' + sufiks + ' (' + potencijalni_glagol + ')\n')
+                                               break
+              
