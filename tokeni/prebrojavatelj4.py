@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-with open('uslovi.txt', 'w+', encoding = 'utf-8') as lista:
+with open('izlaz.txt', 'r', encoding = 'utf-8') as lista:
     recnik=dict()
     for red in lista.readlines():
         x=red.split("/t")
